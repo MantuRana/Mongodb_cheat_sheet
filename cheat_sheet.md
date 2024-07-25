@@ -26,7 +26,8 @@ db.posts.insert({
   title: 'Post One',
   body: 'Body of post one',
   category: 'News',
-  tags: ['news', 'events'],
+  
+  tags: ['news','events'],
   user: {
     name: 'John Doe',
     status: 'author'
@@ -41,10 +42,12 @@ db.posts.insertMany([{
     'lang': 'JavaScript',
     'member_since': 5
     }, 
+    
     {'name': 'Rohan',
     'lang': 'Python',
     'member_since': 3
     },
+    
     {'name': 'Lovish',
     'lang': 'Java',
     'member_since': 4
@@ -141,8 +144,8 @@ db.posts.update({ title: 'Post One' },
 {
   $set: {
     comments: [
-      {
-        body: 'Comment One',
+    {
+       body: 'Comment One',
         user: 'Mary Williams',
         date: Date()
       },
