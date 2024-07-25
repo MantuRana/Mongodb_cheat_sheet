@@ -37,7 +37,8 @@ db.posts.insert({
 
 # Insert many Rows
 
-db.posts.insertMany([{
+db.posts.insertMany([
+    {
     'name': 'Harry',
     'lang': 'JavaScript',
     'member_since': 5
