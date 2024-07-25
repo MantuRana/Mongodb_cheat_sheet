@@ -6,16 +6,20 @@ show dbs
 # Show Current Database
 db
 
-# Create Or Switch Database
-use acme
+# Create a new or switch databases
+use dbname
 
 # Drop
 db.dropDatabase()
 
 # Create Collection
 db.createCollection('posts')
+
 # Show Collections
 show collections
+
+# Drop a collection named 'posts'
+db.posts.drop()
 
 # Insert Row
 db.posts.insert({
@@ -30,36 +34,37 @@ db.posts.insert({
   date: Date()
 })
 
-# Insert Multiple Rows
-db.posts.insertMany([
-  {
-    title: 'Post Two',
-    body: 'Body of post two',
-    category: 'Technology',
-    date: Date()
-  },
-  {
-    title: 'Post Three',
-    body: 'Body of post three',
-    category: 'News',
-    date: Date()
-  },
-  {
-    title: 'Post Four',
-    body: 'Body of post three',
-    category: 'Entertainment',
-    date: Date()
-  }
-])
+# Insert many Rows
+
+db.posts.insertMany([{
+    'name': 'Harry',
+    'lang': 'JavaScript',
+    'member_since': 5
+    }, 
+    {'name': 'Rohan',
+    'lang': 'Python',
+    'member_since': 3
+    },
+    {'name': 'Lovish',
+    'lang': 'Java',
+    'member_since': 4
+}])
 
 # Get All Rows
 db.posts.find()
 
-# Get All Rows Formatted
+# Show all Rows in a Collection (Prettified)
 db.posts.find().pretty()
 
 # Find Rows
 db.posts.find({ category: 'News' })
+
+# Find the first row matching the object
+db.posts.findOne({name: 'Harry'})
+
+# Limit the number of rows in output
+db.comments.find().limit(2)
+
 
 # Sort Rows
 # asc
@@ -91,16 +96,12 @@ db.posts.find({ title: 'Post One' }, {
   author: 1
 })
 
-# Update Row
-db.posts.update({ title: 'Post Two' },
-{
-  title: 'Post Two',
-  body: 'New body for post 2',
-  date: Date()
-},
-{
-  upsert: true
-})
+# Update a row
+db.posts.updateOne({name: 'Shubham'},
+{$set: {'name': 'Harry',
+    'lang': 'JavaScript',
+    'member_since': 51
+}}, {upsert: true})
 
 # Update Specific Field
 db.posts.update({ title: 'Post Two' },
@@ -128,6 +129,12 @@ db.posts.update({ title: 'Post Two' },
 
 # Delete Row
 db.posts.remove({ title: 'Post Four' })
+
+# Greater & Less Than
+db.posts.find({ views: { $gt: 2 } })
+db.posts.find({ views: { $gte: 7 } })
+db.posts.find({ views: { $lt: 7 } })
+db.posts.find({ views: { $lte: 7 } })
 
 # Sub-Documents
 db.posts.update({ title: 'Post One' },
@@ -169,8 +176,4 @@ db.posts.find({
 })
 
 
-# Greater & Less Than
-db.posts.find({ views: { $gt: 2 } })
-db.posts.find({ views: { $gte: 7 } })
-db.posts.find({ views: { $lt: 7 } })
-db.posts.find({ views: { $lte: 7 } })
+
